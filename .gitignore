@@ -58,9 +58,6 @@ ipython_config.py
 # pyenv
 .python-version
 
-# pipenv
-Pipfile.lock
-
 # poetry
 poetry.lock
 
