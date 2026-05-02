@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 
@@ -8,3 +9,22 @@ class AbstractTimeStamp(models.Model):
     class Meta:
         abstract = True
 
+
+class AbstractUUID(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    class Meta:
+        abstract = True
+
+
+class AbstractIsActive(models.Model):
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        abstract = True
+
+
+class AbstractAudit(AbstractUUID, AbstractTimeStamp, AbstractIsActive):
+    
+    class Meta:
+        abstract = True
