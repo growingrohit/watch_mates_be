@@ -12,6 +12,7 @@ class User(AbstractAudit, AbstractUser):
     mobile_number = models.CharField(max_length=10, unique=True, null=True, blank=True)
 
     class Meta:
+        ordering = ["-created_at"]
         indexes = [
             models.Index(fields=["username"]),
             models.Index(fields=["full_name"]),

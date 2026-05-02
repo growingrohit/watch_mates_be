@@ -17,6 +17,7 @@ class Profile(AbstractAudit):
     date_of_birth = models.DateField(null=True, blank=True)
 
     class Meta:
+        ordering = ["-created_at"]
         indexes = [
             models.Index(fields=["date_of_birth"]),
         ]
