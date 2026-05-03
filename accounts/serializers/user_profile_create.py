@@ -4,11 +4,6 @@ from rest_framework import serializers
 from accounts.models import Profile, User
 
 
-class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
-
-
 class UserProfileCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=8)
     display_name = serializers.CharField(required=False, allow_blank=True)
