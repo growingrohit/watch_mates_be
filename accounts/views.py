@@ -1,8 +1,8 @@
-from django.contrib.auth import authenticate
 from rest_framework import generics, permissions, status
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from accounts.models import User
 from accounts.serializers import LoginSerializer, UserProfileCreateSerializer
 
 
@@ -37,11 +37,17 @@ class LoginAPIView(APIView):
 
         username = serializer.validated_data["username"]
         password = serializer.validated_data["password"]
-        user = authenticate(request=request, username=username, password=password)
+        user = User.objects.filter(username=username).first()
 
         if user is None:
             return Response(
-                {"message": "Invalid username or password."},
+                {"message": "User does not exist."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if not user.check_password(password):
+            return Response(
+                {"message": "Password is invalid."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
