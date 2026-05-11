@@ -3,7 +3,7 @@ from django.db import models
 from common.abstract import AbstractAudit
 
 from chat.models import Thread
-
+from accounts.models import Profile
 
 class ThreadMessage(AbstractAudit):
     thread = models.ForeignKey(
