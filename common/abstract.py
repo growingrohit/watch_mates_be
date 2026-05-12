@@ -36,6 +36,18 @@ class AbstractCreatedBy(models.Model):
     created_by = models.ForeignKey(
         AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        related_name="%(class)s_created_by",
+    )
+
+    class Meta:
+        abstract = True
+
+
+class AbstractUpdatedBy(models.Model):
+    updated_by = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="%(class)s_updated_by",
     )
 
     class Meta:
