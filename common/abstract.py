@@ -1,6 +1,8 @@
 import uuid
 from django.db import models
 
+from watch_mates.settings import AUTH_USER_MODEL
+
 
 class AbstractTimeStamp(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,5 +28,15 @@ class AbstractIsActive(models.Model):
 
 class AbstractAudit(AbstractUUID, AbstractTimeStamp, AbstractIsActive):
     
+    class Meta:
+        abstract = True
+
+
+class AbstractCreatedBy(models.Model):
+    created_by = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+
     class Meta:
         abstract = True
