@@ -58,3 +58,9 @@ class AbstractCreatedByUpdatedBy(AbstractCreatedBy, AbstractUpdatedBy):
     
     class Meta:
         abstract = True
+
+
+class AbstractCompleteAudit(AbstractAudit, AbstractCreatedByUpdatedBy):
+    
+    class Meta:
+        abstract = True
