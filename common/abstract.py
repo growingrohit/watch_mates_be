@@ -52,3 +52,9 @@ class AbstractUpdatedBy(models.Model):
 
     class Meta:
         abstract = True
+
+
+class AbstractCreatedByUpdatedBy(AbstractCreatedBy, AbstractUpdatedBy):
+    
+    class Meta:
+        abstract = True
