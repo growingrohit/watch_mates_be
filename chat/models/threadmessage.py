@@ -66,7 +66,7 @@ class TextMessage(ThreadMessage):
 
 class MediaMessage(ThreadMessage):
     media_url = models.URLField()
-    kind = models.CharField(
+    media_kind = models.CharField(
         max_length=255,
         choices=MediaKind.choices,
         default=MediaKind.IMAGE,
