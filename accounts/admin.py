@@ -84,6 +84,6 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ("user", "display_name", "date_of_birth", "is_active")
     search_fields = ("user__username", "display_name")
     list_filter = ("is_active",)
-    list_select_related = ("user",)
+    raw_id_field = ("user",)
     readonly_fields = ("created_at", "updated_at")
     save_as = True
