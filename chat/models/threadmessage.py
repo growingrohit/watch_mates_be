@@ -32,7 +32,7 @@ class ThreadMessage(PolymorphicModel, AbstractCompleteAudit):
         on_delete=models.CASCADE,
     )
     delivered_time = models.DateTimeField(
-        null=True
+        null=True, blank=True,
     )
     kind = models.CharField(
         max_length=255,
@@ -43,7 +43,7 @@ class ThreadMessage(PolymorphicModel, AbstractCompleteAudit):
     replied_to = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
-        null=True
+        null=True, blank=True,
     )
     
     class Meta:
