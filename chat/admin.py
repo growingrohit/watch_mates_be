@@ -6,13 +6,15 @@ from polymorphic.admin import (
 )
 
 from chat.models import (
-    Thread,
-    ThreadMember, 
-    ThreadMessage,
-    TextMessage,
-    MediaMessage,
     LinkMessage,
+    MediaMessage,
+    MessageReceipt,
+    TextMessage,
+    Thread,
+    ThreadMember,
+    ThreadMessage,
 )
+
 
 @admin.register(Thread)
 class ThreadAdmin(admin.ModelAdmin):
@@ -31,6 +33,29 @@ class ThreadMemberAdmin(admin.ModelAdmin):
     list_filter = ("is_active",)
     raw_id_fields = ("thread", "member")
     readonly_fields = ("created_at", "updated_at")
+    save_as = True
+
+
+@admin.register(MessageReceipt)
+class MessageReceiptAdmin(admin.ModelAdmin):
+    list_display = (
+        "message",
+        "receiver",
+        "received_datetime",
+        "seen_datetime",
+        "is_active",
+    )
+    search_fields = (
+        "receiver__display_name",
+        "receiver__user__username",
+        "message__thread__name",
+        "reaction",
+    )
+    list_filter = ("is_active", "received_datetime", "seen_datetime")
+    raw_id_fields = ("message", "receiver", "created_by", "updated_by")
+    readonly_fields = ("created_at", "updated_at")
+    list_select_related = ("message", "receiver", "receiver__user")
+    ordering = ("-created_at",)
     save_as = True
 
 

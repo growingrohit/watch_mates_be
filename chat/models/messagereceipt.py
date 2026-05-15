@@ -16,13 +16,16 @@ class MessageReceipt(AbstractCompleteAudit):
         on_delete=models.CASCADE,
     )
     received_datetime = models.DateTimeField(
-        null=True
+        null=True, 
+        blank=True,
     )
     seen_datetime = models.DateTimeField(
-        null=True
+        null=True,
+        blank=True,
     )
     reaction = models.CharField(
-        max_length=8, blank=True
+        max_length=8,
+        blank=True,
     )
 
     class Meta:
