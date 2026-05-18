@@ -8,6 +8,7 @@ django = "*"
 psycopg = {extras = ["binary"], version = "*"}
 djangorestframework = "*"
 django-polymorphic = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
