@@ -9,8 +9,11 @@ psycopg = {extras = ["binary"], version = "*"}
 djangorestframework = "*"
 django-polymorphic = "*"
 djangorestframework-simplejwt = "*"
+factory-boy = "*"
+faker = "*"
 
 [dev-packages]
+factory-boy = "*"
 
 [requires]
 python_version = "3.10"
