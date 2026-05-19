@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 
 from accounts.models import User
 from accounts.serializers import LoginSerializer
+from accounts.utils import build_auth_response_data
 
 
 class LoginAPIView(APIView):
@@ -30,14 +31,6 @@ class LoginAPIView(APIView):
             )
 
         return Response(
-            {
-                "message": "Login successful.",
-                "data": {
-                    "id": str(user.id),
-                    "username": user.username,
-                    "email": user.email,
-                    "full_name": user.full_name,
-                },
-            },
+            build_auth_response_data("Login successful.", user),
             status=status.HTTP_200_OK,
         )
