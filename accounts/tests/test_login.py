@@ -33,6 +33,8 @@ class LoginAPITestCase(APITestCase):
         self.assertEqual(response.data["data"]["email"], "loginuser@example.com")
         self.assertEqual(response.data["data"]["full_name"], "Login User")
         self.assertEqual(str(self.user.id), response.data["data"]["id"])
+        self.assertIn("access", response.data["tokens"])
+        self.assertIn("refresh", response.data["tokens"])
 
     def test_login_user_does_not_exist(self):
         response = self.client.post(

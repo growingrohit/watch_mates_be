@@ -46,6 +46,8 @@ class UserProfileCreateAPITestCase(APITestCase):
         self.assertEqual(profile.display_name, "New User")
         self.assertEqual(profile.bio, "Hello from tests")
         self.assertEqual(profile.avatar, "https://example.com/avatar.png")
+        self.assertIn("access", response.data["tokens"])
+        self.assertIn("refresh", response.data["tokens"])
 
     def test_create_user_with_minimal_fields(self):
         payload = {
@@ -59,6 +61,8 @@ class UserProfileCreateAPITestCase(APITestCase):
         profile = Profile.objects.get(user=user)
         self.assertEqual(profile.display_name, "")
         self.assertEqual(profile.bio, "")
+        self.assertIn("access", response.data["tokens"])
+        self.assertIn("refresh", response.data["tokens"])
 
     def test_create_user_duplicate_username(self):
         User.objects.create_user(
