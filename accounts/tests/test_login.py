@@ -1,9 +1,8 @@
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-User = get_user_model()
+from accounts.factories import DEFAULT_PASSWORD, UserFactory
 
 
 class LoginAPITestCase(APITestCase):
@@ -11,13 +10,13 @@ class LoginAPITestCase(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.password = "securepass123"
-        cls.user = User.objects.create_user(
+        cls.password = DEFAULT_PASSWORD
+        cls.user = UserFactory(
             username="loginuser",
             email="loginuser@example.com",
-            password=cls.password,
             first_name="Login",
             last_name="User",
+            password=cls.password,
         )
 
     def test_login_success(self):

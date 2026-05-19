@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -6,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.test import APIRequestFactory, APITestCase
 from rest_framework.views import APIView
 
-User = get_user_model()
+from accounts.factories import DEFAULT_PASSWORD, UserFactory
 
 
 class ProtectedSampleAPIView(APIView):
@@ -17,19 +16,16 @@ class ProtectedSampleAPIView(APIView):
 
 
 class JWTAuthTestCase(APITestCase):
-    factory = APIRequestFactory()
+    request_factory = APIRequestFactory()
 
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create_user(
-            username="jwtuser",
-            password="securepass123",
-        )
+        cls.user = UserFactory(username="jwtuser", password=DEFAULT_PASSWORD)
 
     def test_token_refresh(self):
         login_response = self.client.post(
             reverse("login"),
-            {"username": "jwtuser", "password": "securepass123"},
+            {"username": "jwtuser", "password": DEFAULT_PASSWORD},
             format="json",
         )
         refresh_token = login_response.data["tokens"]["refresh"]
@@ -44,7 +40,7 @@ class JWTAuthTestCase(APITestCase):
         self.assertIn("access", response.data)
 
     def test_protected_endpoint_requires_authentication(self):
-        request = self.factory.get("/protected/")
+        request = self.request_factory.get("/protected/")
         response = ProtectedSampleAPIView.as_view()(request)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -52,12 +48,12 @@ class JWTAuthTestCase(APITestCase):
     def test_access_token_grants_authentication(self):
         login_response = self.client.post(
             reverse("login"),
-            {"username": "jwtuser", "password": "securepass123"},
+            {"username": "jwtuser", "password": DEFAULT_PASSWORD},
             format="json",
         )
         access_token = login_response.data["tokens"]["access"]
 
-        request = self.factory.get("/protected/")
+        request = self.request_factory.get("/protected/")
         request.META["HTTP_AUTHORIZATION"] = f"Bearer {access_token}"
         response = ProtectedSampleAPIView.as_view()(request)
 

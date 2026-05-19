@@ -3,6 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from accounts.factories import DEFAULT_PASSWORD, UserFactory
 from accounts.models import Profile
 
 User = get_user_model()
@@ -15,7 +16,7 @@ class UserProfileCreateAPITestCase(APITestCase):
         payload = {
             "username": "newuser",
             "email": "newuser@example.com",
-            "password": "securepass123",
+            "password": DEFAULT_PASSWORD,
             "first_name": "New",
             "last_name": "User",
             "country_code": "+91",
@@ -52,7 +53,7 @@ class UserProfileCreateAPITestCase(APITestCase):
     def test_create_user_with_minimal_fields(self):
         payload = {
             "username": "minimaluser",
-            "password": "securepass123",
+            "password": DEFAULT_PASSWORD,
         }
         response = self.client.post(self.url, payload, format="json")
 
@@ -65,10 +66,7 @@ class UserProfileCreateAPITestCase(APITestCase):
         self.assertIn("refresh", response.data["tokens"])
 
     def test_create_user_duplicate_username(self):
-        User.objects.create_user(
-            username="existinguser",
-            password="securepass123",
-        )
+        UserFactory(username="existinguser")
 
         response = self.client.post(
             self.url,
@@ -80,11 +78,7 @@ class UserProfileCreateAPITestCase(APITestCase):
         self.assertIn("username", response.data)
 
     def test_create_user_duplicate_email(self):
-        User.objects.create_user(
-            username="userone",
-            email="duplicate@example.com",
-            password="securepass123",
-        )
+        UserFactory(username="userone", email="duplicate@example.com")
 
         response = self.client.post(
             self.url,
@@ -100,11 +94,7 @@ class UserProfileCreateAPITestCase(APITestCase):
         self.assertIn("email", response.data)
 
     def test_create_user_duplicate_mobile_number(self):
-        User.objects.create_user(
-            username="userone",
-            mobile_number="9876543210",
-            password="securepass123",
-        )
+        UserFactory(username="userone", mobile_number="9876543210")
 
         response = self.client.post(
             self.url,
