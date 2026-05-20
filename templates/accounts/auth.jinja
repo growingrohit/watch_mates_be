@@ -7,7 +7,7 @@
 {% block content %}
 <section class="auth-card" data-login-api="{{ login_api_url }}" data-register-api="{{ register_api_url }}">
   <h1 class="auth-title">Welcome to Watch Mates</h1>
-  <p class="auth-subtitle">Sign in or create an account to start chatting over shared videos.</p>
+  <p class="auth-subtitle">Sign in to start chatting over shared videos.</p>
 
   {% set active_tab = default_tab|default('login') %}
   {% include "components/auth_tabs.jinja" %}
@@ -31,23 +31,11 @@
   <form id="register-form" class="auth-panel{% if active_tab == 'register' %} is-visible{% endif %}" data-panel="register" novalidate>
     <div class="form-grid">
       <div class="form-field">
-        <label for="reg-username">Username<span class="required">*</span></label>
-        <input id="reg-username" name="username" type="text" class="input" required autocomplete="username">
-      </div>
-      <div class="form-field">
-        <label for="reg-email">Email</label>
-        <input id="reg-email" name="email" type="email" class="input" autocomplete="email">
-      </div>
-      <div class="form-field">
-        <label for="reg-password">Password<span class="required">*</span></label>
-        <input id="reg-password" name="password" type="password" class="input" required minlength="8" autocomplete="new-password">
-      </div>
-      <div class="form-field">
-        <label for="reg-first-name">First name</label>
+        <label for="reg-first-name">First name<span class="required">*</span></label>
         <input id="reg-first-name" name="first_name" type="text" class="input" autocomplete="given-name">
       </div>
       <div class="form-field">
-        <label for="reg-last-name">Last name</label>
+        <label for="reg-last-name">Last name<span class="required">*</span></label>
         <input id="reg-last-name" name="last_name" type="text" class="input" autocomplete="family-name">
       </div>
       <div class="form-field">
@@ -55,8 +43,20 @@
         <input id="reg-country-code" name="country_code" type="text" class="input" placeholder="+91">
       </div>
       <div class="form-field">
-        <label for="reg-mobile">Mobile number</label>
+        <label for="reg-mobile">Mobile number<span class="required">*</span></label>
         <input id="reg-mobile" name="mobile_number" type="text" class="input" autocomplete="tel">
+      </div>
+      <div class="form-field form-field-full">
+        <label for="reg-email">Email</label>
+        <input id="reg-email" name="email" type="email" class="input" autocomplete="email">
+      </div>
+      <div class="form-field form-field-full">
+        <label for="reg-username">Username<span class="required">*</span></label>
+        <input id="reg-username" name="username" type="text" class="input" required autocomplete="username">
+      </div>
+      <div class="form-field form-field-full">
+        <label for="reg-password">Password<span class="required">*</span></label>
+        <input id="reg-password" name="password" type="password" class="input" required minlength="8" autocomplete="new-password">
       </div>
       <div class="form-field form-field-full">
         <label for="reg-display-name">Display name</label>
