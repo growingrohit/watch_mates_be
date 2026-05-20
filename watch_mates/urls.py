@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from accounts.views import AuthPageView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/accounts/", include("accounts.urls")),
+    path("accounts/", include("accounts.page_urls")),
+    path("", AuthPageView.as_view(), name="home"),
 ]
