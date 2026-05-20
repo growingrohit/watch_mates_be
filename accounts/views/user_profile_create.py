@@ -2,6 +2,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
 from accounts.serializers import UserProfileCreateSerializer
+from accounts.utils import build_auth_response_data
 
 
 class UserProfileCreateAPIView(generics.CreateAPIView):
@@ -13,14 +14,9 @@ class UserProfileCreateAPIView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response(
-            {
-                "message": "User and profile created successfully.",
-                "data": {
-                    "id": str(user.id),
-                    "username": user.username,
-                    "email": user.email,
-                    "full_name": user.full_name,
-                },
-            },
+            build_auth_response_data(
+                "User and profile created successfully.",
+                user,
+            ),
             status=status.HTTP_201_CREATED,
         )

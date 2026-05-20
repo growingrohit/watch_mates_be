@@ -1,9 +1,8 @@
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-User = get_user_model()
+from accounts.factories import DEFAULT_PASSWORD, UserFactory
 
 
 class LoginAPITestCase(APITestCase):
@@ -11,13 +10,13 @@ class LoginAPITestCase(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.password = "securepass123"
-        cls.user = User.objects.create_user(
+        cls.password = DEFAULT_PASSWORD
+        cls.user = UserFactory(
             username="loginuser",
             email="loginuser@example.com",
-            password=cls.password,
             first_name="Login",
             last_name="User",
+            password=cls.password,
         )
 
     def test_login_success(self):
@@ -33,6 +32,8 @@ class LoginAPITestCase(APITestCase):
         self.assertEqual(response.data["data"]["email"], "loginuser@example.com")
         self.assertEqual(response.data["data"]["full_name"], "Login User")
         self.assertEqual(str(self.user.id), response.data["data"]["id"])
+        self.assertIn("access", response.data["tokens"])
+        self.assertIn("refresh", response.data["tokens"])
 
     def test_login_user_does_not_exist(self):
         response = self.client.post(
