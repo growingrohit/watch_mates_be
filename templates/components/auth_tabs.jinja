@@ -1,0 +1,20 @@
+<nav class="auth-tabs" role="tablist">
+  <button
+    type="button"
+    class="auth-tab{% if active_tab == 'login' %} is-active{% endif %}"
+    data-tab="login"
+    role="tab"
+    aria-selected="{{ 'true' if active_tab == 'login' else 'false' }}"
+  >
+    Sign in
+  </button>
+  <button
+    type="button"
+    class="auth-tab{% if active_tab == 'register' %} is-active{% endif %}"
+    data-tab="register"
+    role="tab"
+    aria-selected="{{ 'true' if active_tab == 'register' else 'false' }}"
+  >
+    Create account
+  </button>
+</nav>

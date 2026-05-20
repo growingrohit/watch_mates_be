@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ page_title|default("Watch Mates") }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ static('css/base.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <main class="page">
+    {% block header %}
+    <header class="site-header">
+      <a class="brand" href="{{ url('home') }}">Watch Mates</a>
+    </header>
+    {% endblock %}
+
+    {% include "components/alert.jinja" %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{{ static('js/auth-api.js') }}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
