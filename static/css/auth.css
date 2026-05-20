@@ -1,0 +1,144 @@
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: #1a2332;
+  border: 1px solid #2a3a52;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.auth-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.auth-subtitle {
+  margin: 0 0 1.5rem;
+  color: #9aa8bc;
+  font-size: 0.95rem;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid #2a3a52;
+  background: transparent;
+  color: #9aa8bc;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.auth-tab.is-active {
+  background: #2a4a7a;
+  border-color: #3d6aaa;
+  color: #fff;
+}
+
+.auth-panel {
+  display: none;
+}
+
+.auth-panel.is-visible {
+  display: block;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+  color: #b8c5d6;
+}
+
+.required {
+  color: #ff8a8a;
+}
+
+.input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #2a3a52;
+  border-radius: 8px;
+  background: #0f1419;
+  color: #e7ecf3;
+  font-size: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #5a9fd4;
+}
+
+.input-textarea {
+  resize: vertical;
+  min-height: 4rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+.form-field-full {
+  grid-column: 1 / -1;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.btn-primary {
+  background: #3d7dd6;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #4d8de6;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #9aa8bc;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #7eb8ff;
+  cursor: pointer;
+  font-size: inherit;
+  text-decoration: underline;
+  padding: 0;
+}
+
+@media (max-width: 520px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
