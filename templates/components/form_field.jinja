@@ -1,0 +1,14 @@
+{# Reusable form field: name, label, type, required, placeholder, optional extra attrs #}
+<div class="form-field">
+  <label for="{{ field_id }}">{{ label }}{% if required %}<span class="required">*</span>{% endif %}</label>
+  <input
+    id="{{ field_id }}"
+    name="{{ name }}"
+    type="{{ field_type|default('text') }}"
+    class="input"
+    {% if required %}required{% endif %}
+    {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+    {% if value %}value="{{ value }}"{% endif %}
+    {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
+  >
+</div>

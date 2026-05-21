@@ -43,7 +43,7 @@ class LoginAPITestCase(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertEqual(response.data["message"], "User does not exist.")
+        self.assertEqual(response.data["message"], "User does not exist. Create an account.")
 
     def test_login_invalid_password(self):
         response = self.client.post(
