@@ -20,7 +20,7 @@ class LoginAPIView(APIView):
 
         if user is None:
             return Response(
-                {"message": "User does not exist."},
+                {"message": "User does not exist. Create an account."},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
