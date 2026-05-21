@@ -22,6 +22,7 @@ from accounts.views import AuthPageView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/accounts/", include("accounts.urls")),
+    path("api/chat/", include("chat.urls")),
     path("accounts/", include("accounts.page_urls")),
     path("", AuthPageView.as_view(), name="home"),
 ]
