@@ -41,7 +41,7 @@ class ThreadAPIView(APIView):
                 )
             )
             .select_related("created_by", "updated_by", "last_message")
-            .order_by("-created_at")
+            .order_by("-last_message__created_at", "-created_at")
         )
 
     def _get_thread(self, user, pk):
