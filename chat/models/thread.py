@@ -41,6 +41,6 @@ class Thread(AbstractCompleteAudit):
     def update_last_message(self):
         self.last_message = self.threadmessage_set.filter(
             is_active=True
-        ).order_by("-created_at")
+        ).order_by("-created_at").first()
 
-        self.save(fields=["last_message"])
+        self.save(update_fields=["last_message"])
