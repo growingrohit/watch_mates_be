@@ -1,0 +1,45 @@
+{% extends "chat/app_base.jinja" %}
+
+{% block content %}
+<section
+  class="chat-layout chat-detail"
+  data-thread-id="{{ thread_id }}"
+  data-thread-api="{{ thread_detail_api_url }}"
+  data-messages-api="{{ thread_messages_api_url }}"
+  data-threads-page-url="{{ url('chat-threads-page') }}"
+  data-login-url="{{ login_page_url }}"
+>
+  <aside class="threads-sidebar threads-sidebar-compact">
+    <a href="{{ url('chat-threads-page') }}" class="back-link">← All threads</a>
+    <div id="thread-header" class="thread-header-card">
+      <img id="thread-avatar" class="thread-avatar" src="" alt="" hidden>
+      <div>
+        <h1 id="thread-title">Loading…</h1>
+        <p id="thread-meta" class="thread-meta"></p>
+      </div>
+    </div>
+  </aside>
+
+  <section class="messages-panel">
+    <div id="messages-list" class="messages-list" aria-live="polite"></div>
+    <p id="messages-empty" class="empty-state hidden">No messages yet. Say hello!</p>
+    <button type="button" id="load-more-btn" class="btn btn-ghost load-more hidden">Load older messages</button>
+
+    <form id="message-form" class="message-composer" novalidate>
+      <textarea
+        id="message-content"
+        name="content"
+        class="input input-textarea"
+        rows="2"
+        placeholder="Type a message…"
+        required
+      ></textarea>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </section>
+</section>
+{% endblock %}
+
+{% block chat_js %}
+<script src="{{ static('js/thread-detail-page.js') }}"></script>
+{% endblock %}

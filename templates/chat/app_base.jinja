@@ -1,0 +1,32 @@
+{% extends "base.jinja" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ static('css/chat.css') }}">
+{% endblock %}
+
+{% block header %}
+<header class="app-header">
+  <a class="brand" href="{{ url('chat-threads-page') }}">Watch Mates</a>
+  <div class="app-header-actions">
+    <span id="current-user-label" class="user-label"></span>
+    <button type="button" id="logout-btn" class="btn btn-ghost">Logout</button>
+  </div>
+</header>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ static('js/chat-api.js') }}"></script>
+<script>
+  (function () {
+    if (!AuthAPI.getAccessToken()) {
+      window.location.href = "{{ login_page_url }}";
+      return;
+    }
+    document.getElementById("logout-btn")?.addEventListener("click", function () {
+      AuthAPI.clearTokens();
+      window.location.href = "{{ login_page_url }}";
+    });
+  })();
+</script>
+{% block chat_js %}{% endblock %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "chat/app_base.jinja" %}
+
+{% block content %}
+<section
+  class="chat-layout"
+  data-threads-api="{{ threads_api_url }}"
+  data-login-url="{{ login_page_url }}"
+>
+  <aside class="threads-sidebar">
+    <div class="sidebar-head">
+      <h1>Threads</h1>
+      <button type="button" id="new-thread-btn" class="btn btn-primary btn-sm">New thread</button>
+    </div>
+
+    <div id="new-thread-panel" class="new-thread-panel hidden">
+      <h2>Create thread</h2>
+      <form id="new-thread-form" novalidate>
+        <div class="form-field">
+          <label for="thread-name">Name</label>
+          <input id="thread-name" name="name" type="text" class="input" placeholder="Movie night" required>
+        </div>
+        <div class="form-field">
+          <label for="thread-kind">Type</label>
+          <select id="thread-kind" name="kind" class="input">
+            <option value="direct">Direct</option>
+            <option value="group">Group</option>
+            <option value="channel">Channel</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="thread-image">Image URL</label>
+          <input id="thread-image" name="profile_image" type="url" class="input" placeholder="https://">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="button" id="cancel-thread-btn" class="btn btn-ghost">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="threads-list" class="threads-list" aria-live="polite"></div>
+    <p id="threads-empty" class="empty-state hidden">No threads yet. Create one to get started.</p>
+  </aside>
+
+  <div class="threads-placeholder">
+    <p>Select a thread to view messages, or create a new one.</p>
+  </div>
+</section>
+{% endblock %}
+
+{% block chat_js %}
+<script src="{{ static('js/threads-page.js') }}"></script>
+{% endblock %}
