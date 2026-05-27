@@ -8,25 +8,16 @@
 >
   <aside class="threads-sidebar">
     <div class="sidebar-head">
-      <h1>Threads</h1>
-      <button type="button" id="new-thread-btn" class="btn btn-primary btn-sm">New thread</button>
+      <h1>Conversations</h1>
+      <button type="button" id="new-thread-btn" class="btn btn-primary btn-sm">Add</button>
     </div>
 
     <div id="new-thread-panel" class="new-thread-panel hidden">
-      <h2>Create thread</h2>
+      <h2>Start New Conversations</h2>
       <form id="new-thread-form" novalidate>
         <div class="form-field">
           <label for="thread-name">Name</label>
-          <input id="thread-name" name="name" type="text" class="input" placeholder="Movie night" required>
-        </div>
-        <div class="form-field">
-          <label for="thread-kind">Type</label>
-          <select id="thread-kind" name="kind" class="input">
-            <option value="direct">Direct</option>
-            <option value="group">Group</option>
-            <option value="channel">Channel</option>
-            <option value="private">Private</option>
-          </select>
+          <input id="thread-name" name="name" type="text" class="input" required>
         </div>
         <div class="form-field">
           <label for="thread-image">Image URL</label>
