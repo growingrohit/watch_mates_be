@@ -54,7 +54,7 @@ Watch Mates is a chat platform where you can connect with your friends, share co
 
 The app will be available at `http://127.0.0.1:8000/`.
 
-## Project Structure
+## Project Structure 🛠️
 
 ```
 watch-mates/
@@ -104,7 +104,7 @@ watch-mates/
 ```
 
  
-## Running Tests
+## Running Tests 📝
 ```bash
 python manage.py test
 ```
