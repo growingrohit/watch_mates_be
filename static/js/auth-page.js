@@ -80,7 +80,7 @@
       AuthAPI.storeTokens(body.tokens);
       showAlert(`${body.message} Redirecting…`, "success");
       setTimeout(() => {
-        window.location.href = "/";
+        window.location.href = "/chat/threads/";
       }, 800);
       return;
     }

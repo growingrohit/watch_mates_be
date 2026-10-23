@@ -2,7 +2,14 @@ from django.db import transaction
 from rest_framework import serializers
 
 from accounts.models import Profile
-from chat.models import Thread, ThreadKind, ThreadMember
+from chat.models import (
+    LinkMessage,
+    MediaMessage,
+    TextMessage,
+    Thread,
+    ThreadKind,
+    ThreadMember,
+)
 
 
 class ThreadMemberReadSerializer(serializers.ModelSerializer):
@@ -32,6 +39,8 @@ class ThreadReadSerializer(serializers.ModelSerializer):
         source="created_by.username",
         read_only=True,
     )
+    last_message_preview = serializers.SerializerMethodField()
+    last_message_time = serializers.SerializerMethodField()
 
     class Meta:
         model = Thread
@@ -42,6 +51,8 @@ class ThreadReadSerializer(serializers.ModelSerializer):
             "kind",
             "is_active",
             "last_message",
+            "last_message_preview",
+            "last_message_time",
             "created_by",
             "created_by_username",
             "updated_by",
@@ -50,6 +61,28 @@ class ThreadReadSerializer(serializers.ModelSerializer):
             "members",
         )
         read_only_fields = fields
+
+    def _preview_for_message(self, message):
+        if message is None:
+            return ""
+        instance = message.get_real_instance()
+        if isinstance(instance, TextMessage):
+            return instance.content[:60]
+        if isinstance(instance, MediaMessage):
+            return f"{instance.media_kind}"
+        if isinstance(instance, LinkMessage):
+            return f"{instance.platform} Link"
+        return ""
+
+    def get_last_message_preview(self, obj):
+        if not obj.last_message_id:
+            return "No messages yet"
+        return self._preview_for_message(obj.last_message) or "No messages yet"
+
+    def get_last_message_time(self, obj):
+        if obj.last_message_id:
+            return obj.last_message.created_at
+        return obj.updated_at
 
 
 class ThreadWriteSerializer(serializers.Serializer):
